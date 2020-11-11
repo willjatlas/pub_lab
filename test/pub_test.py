@@ -1,0 +1,52 @@
+import unittest
+
+from src.pub import Pub
+from src.customer import Customer
+from src.drink import Drink
+
+class TestPub(unittest.TestCase):
+    def setUp(self):
+        self.pub = Pub("The Rusty Screw", 100)
+        self.customer = Customer("Jack Sparrow", 1000, 20)
+        self.drink = Drink("Rum", 5, 2)
+
+    def test_has_name(self):
+        self.assertEqual("The Rusty Screw", self.pub.name)
+
+    def test_has_till(self):
+        self.assertEqual(100, self.pub.till)
+
+    def test_can_increase(self):
+        self.pub.increase_till(100)
+        self.assertEqual(200, self.pub.till)
+
+    def test_can_buy_drink(self):
+        self.pub.sell_customer_drink(self.customer, self.drink)
+        self.assertEqual(105, self.pub.till)
+        self.assertEqual(995, self.customer.wallet)
+
+    def test_check_cust_is_over18(self):
+        is_true = self.pub.check_age(self.customer)
+        self.assertEqual(True, is_true)
+
+    def test_check_cust_is_under18(self):
+        self.customer_2 = Customer("Billy the kid", 500, 17)
+        is_false = self.pub.check_age(self.customer_2)
+        self.assertEqual(False, is_false)
+
+    def test_check_customer_is_getting_smashed(self):
+        self.pub.sell_customer_drink(self.customer, self.drink)
+        self.assertEqual(2, self.customer.drunkenness)
+    
+    def test_if_customer_is_too_drunk(self):
+        self.drink_2 = Drink("Rum n coke", 5, 5)
+        self.pub.sell_customer_drink(self.customer, self.drink_2)
+        can_buy = self.pub.sell_customer_drink(self.customer, self.drink)
+        self.assertEqual(False , can_buy)
+
+    
+        
+
+    
+
+    
