@@ -46,7 +46,7 @@ class TestPub(unittest.TestCase):
         can_buy = self.pub.sell_customer_drink(self.customer, self.drink)
         self.assertEqual(False, can_buy)
 
-    def test_food_reducing_drunk(self):
+    def test_food_reducing_drunkenness(self):
         self.pub.sell_customer_drink(self.customer, self.drink)
         self.pub.sell_customer_food(self.customer, self.food)
         self.assertEqual(1, self.customer.drunkenness)

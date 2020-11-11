@@ -1,3 +1,5 @@
+# Defining the class for the drink object.
+
 class Drink:
     #constructor
     def __init__(self, name, price, alchohol_lvl):
