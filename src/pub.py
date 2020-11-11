@@ -29,7 +29,12 @@ class Pub:
            self.check_if_cust_is_drunk(customer) == False:
             drink_price = drink.price
             self.increase_till(drink_price)
-            customer.pay_for_drink(drink_price)
+            customer.pay_bill(drink_price)
             customer.increase_drunkenness(drink.alchohol_lvl)
         else:
             return False 
+    
+    def sell_customer_food(self, customer, food):
+        self.increase_till(food.price)
+        customer.pay_bill(food.price)
+        customer.decrease_drunkenness(food.rejuvination_lvl)

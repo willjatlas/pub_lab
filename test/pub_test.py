@@ -3,12 +3,14 @@ import unittest
 from src.pub import Pub
 from src.customer import Customer
 from src.drink import Drink
+from src.food import Food 
 
 class TestPub(unittest.TestCase):
     def setUp(self):
         self.pub = Pub("The Rusty Screw", 100)
         self.customer = Customer("Jack Sparrow", 1000, 20)
         self.drink = Drink("Rum", 5, 2)
+        self.food = Food("Fish", 10, 1)
 
     def test_has_name(self):
         self.assertEqual("The Rusty Screw", self.pub.name)
@@ -42,7 +44,12 @@ class TestPub(unittest.TestCase):
         self.drink_2 = Drink("Rum n coke", 5, 5)
         self.pub.sell_customer_drink(self.customer, self.drink_2)
         can_buy = self.pub.sell_customer_drink(self.customer, self.drink)
-        self.assertEqual(False , can_buy)
+        self.assertEqual(False, can_buy)
+
+    def test_food_reducing_drunk(self):
+        self.pub.sell_customer_drink(self.customer, self.drink)
+        self.pub.sell_customer_food(self.customer, self.food)
+        self.assertEqual(1, self.customer.drunkenness)
 
     
         
