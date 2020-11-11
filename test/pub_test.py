@@ -10,6 +10,7 @@ class TestPub(unittest.TestCase):
         self.pub = Pub("The Rusty Screw", 100)
         self.customer = Customer("Jack Sparrow", 1000, 20)
         self.drink = Drink("Rum", 5, 2)
+        self.drink_2 = Drink("Rum n coke", 7, 5)
         self.food = Food("Fish", 10, 1)
 
     def test_has_name(self):
@@ -41,7 +42,6 @@ class TestPub(unittest.TestCase):
         self.assertEqual(2, self.customer.drunkenness)
     
     def test_if_customer_is_too_drunk(self):
-        self.drink_2 = Drink("Rum n coke", 5, 5)
         self.pub.sell_customer_drink(self.customer, self.drink_2)
         can_buy = self.pub.sell_customer_drink(self.customer, self.drink)
         self.assertEqual(False, can_buy)
@@ -51,7 +51,19 @@ class TestPub(unittest.TestCase):
         self.pub.sell_customer_food(self.customer, self.food)
         self.assertEqual(1, self.customer.drunkenness)
 
-    
+    def test_drinks_list_length(self):
+        self.pub.drinks_list.append(self.drink)
+        self.pub.drinks_list.append(self.drink_2)
+        list_len = len(self.pub.drinks_list)
+        self.assertEqual(2, list_len)
+
+    def test_stock_value(self):
+        self.pub.drinks_list.append(self.drink)
+        self.pub.drinks_list.append(self.drink_2)
+        self.pub.incease_stock_value(self.pub.drinks_list)
+        total = self.pub.stock_value
+        self.assertEqual(12, total)
+        
         
 
     

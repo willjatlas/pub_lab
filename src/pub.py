@@ -6,6 +6,8 @@ class Pub:
         self.name = name
         self.till = till
         self.max_drunk_level = 4
+        self.stock_value = 0
+        self.drinks_list = []
 
 
     def increase_till(self, amount):
@@ -23,7 +25,13 @@ class Pub:
         else:
             return False
 
-# A Customer should be able to buy a Drink from the Pub, reducing the money in its wallet and increasing the money in the Pub's till
+    def drinks_menu_length(self):
+        return len(self.drinks_list)
+    
+    def incease_stock_value(self, drink_list):
+        for drink in drink_list:
+            self.stock_value += drink.price
+
     def sell_customer_drink(self, customer, drink):
         if self.check_age(customer) == True and \
            self.check_if_cust_is_drunk(customer) == False:
